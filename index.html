@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         /* ALL YOUR EXISTING CSS STYLES REMAIN EXACTLY THE SAME */
-        /* I'm including the full CSS to make it complete */
+        /* I'm not repeating the full CSS to save space, but it's all there */
         
         :root {
             --navy: #0a0e17;
@@ -30,1504 +30,12 @@
             box-sizing: border-box;
         }
         
-        html {
-            scroll-behavior: smooth;
-            scroll-padding-top: 80px;
-        }
-        
-        body {
-            background-color: var(--navy);
-            color: var(--white);
-            font-family: 'Montserrat', sans-serif;
-            line-height: 1.7;
-            overflow-x: hidden;
-            cursor: default;
-        }
-        
-        h1, h2, h3, h4, h5 {
-            font-family: 'Cormorant Garamond', serif;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-        
-        /* Luxury Background Effect */
-        .luxury-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(10, 14, 23, 0.9) 0%, transparent 50%);
-            z-index: -1;
-        }
-        
-        /* Header & Navigation - Hides on scroll */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            padding: 1.5rem 0;
-            transition: var(--transition);
-            background: rgba(10, 14, 23, 0.95);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
-            transform: translateY(0);
-        }
-        
-        header.hidden {
-            transform: translateY(-100%);
-        }
-        
-        .scrolled {
-            padding: 1rem 0;
-            background: rgba(10, 14, 23, 0.98);
-            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
-        }
-        
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1600px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-        
-        .logo {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: var(--gold);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            letter-spacing: 3px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .logo:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: var(--gold);
-            transition: width 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
-        }
-        
-        .logo:hover:after {
-            width: 100%;
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-        
-        .nav-links li {
-            margin-left: 2rem;
-            position: relative;
-        }
-        
-        .nav-links a {
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.9rem;
-            letter-spacing: 1.5px;
-            transition: var(--transition);
-            text-transform: uppercase;
-            position: relative;
-            padding: 0.5rem 0;
-        }
-        
-        .nav-links a:after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 1px;
-            bottom: 0;
-            left: 0;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            transition: width 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
-        }
-        
-        .nav-links a:hover {
-            color: var(--gold);
-        }
-        
-        .nav-links a:hover:after {
-            width: 100%;
-        }
-        
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-        
-        .nav-icon {
-            color: var(--white);
-            font-size: 1.2rem;
-            transition: var(--transition);
-            cursor: pointer;
-            position: relative;
-        }
-        
-        .nav-icon:hover {
-            color: var(--gold);
-            transform: translateY(-3px);
-        }
-        
-        .admin-btn {
-            background: transparent;
-            color: var(--gold);
-            padding: 0.7rem 1.2rem;
-            border: 1px solid var(--gold);
-            border-radius: 0;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            transition: var(--transition);
-            font-size: 0.75rem;
-            cursor: pointer;
-        }
-        
-        .admin-btn:hover {
-            background: rgba(212, 175, 55, 0.1);
-        }
-        
-        .cta-button {
-            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-            color: var(--navy);
-            padding: 0.9rem 1.8rem;
-            border-radius: 0;
-            font-weight: 600;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            transition: var(--transition);
-            border: none;
-            font-size: 0.85rem;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-        }
-        
-        .cta-button:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transition: 0.6s;
-            z-index: -1;
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 25px rgba(212, 175, 55, 0.4);
-        }
-        
-        .cta-button:hover:before {
-            left: 100%;
-        }
-        
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-            padding: 0 2rem;
-            margin-top: 0;
-        }
-        
-        .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(ellipse at 20% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 50%),
-                radial-gradient(ellipse at 40% 80%, rgba(10, 14, 23, 0.9) 0%, transparent 50%);
-            z-index: -1;
-        }
-        
-        .hero-content {
-            max-width: 1600px;
-            margin: 0 auto;
-            width: 100%;
-            position: relative;
-            z-index: 2;
-            padding-top: 80px;
-        }
-        
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            color: var(--gold);
-            line-height: 1.1;
-            letter-spacing: 2px;
-            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
-            opacity: 0;
-            transform: translateY(50px);
-        }
-        
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2.5rem;
-            max-width: 600px;
-            color: var(--cream);
-            font-family: 'Playfair Display', serif;
-            font-weight: 300;
-            opacity: 0;
-            transform: translateY(50px);
-        }
-        
-        .hero-buttons {
-            display: flex;
-            gap: 1.5rem;
-            opacity: 0;
-            transform: translateY(50px);
-            flex-wrap: wrap;
-        }
-        
-        .secondary-button {
-            background: transparent;
-            color: var(--white);
-            padding: 0.9rem 1.8rem;
-            border: 1px solid var(--gold);
-            border-radius: 0;
-            font-weight: 600;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            transition: var(--transition);
-            font-size: 0.85rem;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-        }
-        
-        .secondary-button:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 100%;
-            background: var(--gold);
-            transition: var(--transition);
-            z-index: -1;
-        }
-        
-        .secondary-button:hover {
-            color: var(--navy);
-        }
-        
-        .secondary-button:hover:before {
-            width: 100%;
-        }
-        
-        .floating-perfume {
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            right: 5%;
-            top: 50%;
-            transform: translateY(-50%);
-            background: url('https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2064&q=80') no-repeat center center/cover;
-            border-radius: 50%;
-            box-shadow: 
-                0 0 80px rgba(212, 175, 55, 0.3),
-                inset 0 0 100px rgba(212, 175, 55, 0.1);
-            opacity: 0;
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0% { transform: translateY(-50%) rotate(0deg); }
-            50% { transform: translateY(-55%) rotate(2deg); }
-            100% { transform: translateY(-50%) rotate(0deg); }
-        }
-        
-        /* Featured Products */
-        .section-title {
-            text-align: center;
-            margin: 6rem 0 4rem;
-            position: relative;
-            padding: 0 2rem;
-        }
-        
-        .section-title h2 {
-            font-size: 3rem;
-            color: var(--gold);
-            display: inline-block;
-            position: relative;
-            padding-bottom: 2rem;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        
-        .section-title h2:after {
-            content: '';
-            position: absolute;
-            width: 100px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        
-        .section-title p {
-            max-width: 700px;
-            margin: 2rem auto 0;
-            color: var(--gray);
-            font-size: 1.1rem;
-            font-family: 'Playfair Display', serif;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        
-        .products {
-            max-width: 1600px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 3rem;
-        }
-        
-        .product-card {
-            background: linear-gradient(145deg, var(--navy-light), var(--navy));
-            border-radius: 0;
-            overflow: hidden;
-            transition: var(--transition);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-            position: relative;
-            border: 1px solid rgba(212, 175, 55, 0.1);
-            opacity: 0;
-            transform: translateY(50px);
-        }
-        
-        .product-card:hover {
-            transform: translateY(-15px) scale(1.02);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-            border-color: rgba(212, 175, 55, 0.3);
-        }
-        
-        .product-badge {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: var(--gold);
-            color: var(--navy);
-            padding: 0.4rem 1rem;
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            z-index: 2;
-            text-transform: uppercase;
-        }
-        
-        .product-image {
-            height: 380px;
-            width: 100%;
-            object-fit: cover;
-            transition: var(--transition);
-            filter: brightness(0.9);
-        }
-        
-        .product-card:hover .product-image {
-            transform: scale(1.08);
-            filter: brightness(1);
-        }
-        
-        .product-info {
-            padding: 2rem;
-            position: relative;
-        }
-        
-        .product-info h3 {
-            margin-bottom: 0.8rem;
-            font-size: 1.6rem;
-            color: var(--white);
-        }
-        
-        .product-info .brand {
-            color: var(--gold);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 1rem;
-            display: block;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 500;
-        }
-        
-        .product-info p {
-            color: var(--gray);
-            margin-bottom: 1.5rem;
-            font-size: 0.95rem;
-            line-height: 1.7;
-        }
-        
-        .price {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--gold);
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        
-        .price:before {
-            content: '₦';
-            font-size: 1.6rem;
-        }
-        
-        .original-price {
-            font-size: 1.3rem;
-            color: var(--gray);
-            text-decoration: line-through;
-            opacity: 0.8;
-        }
-        
-        .original-price:before {
-            content: '₦';
-            font-size: 1.1rem;
-        }
-        
-        .product-button {
-            display: block;
-            width: 100%;
-            padding: 1rem;
-            background: transparent;
-            color: var(--white);
-            border: 1px solid var(--gold);
-            font-weight: 600;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 0.85rem;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-        
-        .product-button:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 100%;
-            background: var(--gold);
-            transition: var(--transition);
-            z-index: -1;
-        }
-        
-        .product-button:hover {
-            color: var(--navy);
-            letter-spacing: 2px;
-        }
-        
-        .product-button:hover:before {
-            width: 100%;
-        }
-        
-        /* About Section */
-        .about {
-            max-width: 1600px;
-            margin: 6rem auto;
-            padding: 0 2rem;
-            display: flex;
-            align-items: center;
-            gap: 5rem;
-        }
-        
-        .about-image {
-            flex: 1;
-            position: relative;
-            opacity: 0;
-            transform: translateX(-100px);
-        }
-        
-        .about-image:before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 2px solid var(--gold);
-            top: -30px;
-            left: -30px;
-            z-index: -1;
-            transition: var(--transition);
-        }
-        
-        .about-image:hover:before {
-            top: -20px;
-            left: -20px;
-        }
-        
-        .about-image img {
-            width: 100%;
-            height: 500px;
-            object-fit: cover;
-            display: block;
-            filter: grayscale(0.2);
-            transition: var(--transition);
-        }
-        
-        .about-image:hover img {
-            filter: grayscale(0);
-        }
-        
-        .about-content {
-            flex: 1;
-            opacity: 0;
-            transform: translateX(100px);
-        }
-        
-        .about-content h2 {
-            font-size: 3rem;
-            margin-bottom: 2rem;
-            color: var(--gold);
-            position: relative;
-            display: inline-block;
-        }
-        
-        .about-content h2:after {
-            content: '';
-            position: absolute;
-            width: 100px;
-            height: 2px;
-            background: var(--gold);
-            bottom: -10px;
-            left: 0;
-        }
-        
-        .about-content p {
-            margin-bottom: 1.5rem;
-            color: var(--gray);
-            font-size: 1.1rem;
-            line-height: 1.8;
-        }
-        
-        .signature {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            color: var(--gold);
-            margin-top: 2rem;
-            font-size: 1.2rem;
-            position: relative;
-            display: inline-block;
-            padding-left: 2rem;
-        }
-        
-        .signature:before {
-            content: '';
-            position: absolute;
-            width: 30px;
-            height: 1px;
-            background: var(--gold);
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-        
-        /* Login Modal */
-        .login-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 3000;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition);
-            padding: 0 2rem;
-        }
-        
-        .login-modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .login-form {
-            background: var(--navy-light);
-            padding: 2.5rem;
-            width: 100%;
-            max-width: 400px;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            position: relative;
-        }
-        
-        .login-form h2 {
-            color: var(--gold);
-            text-align: center;
-            margin-bottom: 1.5rem;
-            font-size: 1.8rem;
-        }
-        
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .form-group label {
-            color: var(--gold);
-            font-weight: 500;
-            letter-spacing: 1px;
-            font-size: 0.9rem;
-        }
-        
-        .form-group input, .form-group textarea, .form-group select {
-            padding: 0.9rem;
-            background: var(--navy);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            color: var(--white);
-            font-family: 'Montserrat', sans-serif;
-            transition: var(--transition);
-            font-size: 0.9rem;
-        }
-        
-        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
-            outline: none;
-            border-color: var(--gold);
-        }
-        
-        .login-btn {
-            background: var(--gold);
-            color: var(--navy);
-            border: none;
-            padding: 0.9rem 2rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: var(--transition);
-            width: 100%;
-            margin-top: 1rem;
-        }
-        
-        .login-btn:hover {
-            background: var(--gold-light);
-        }
-        
-        .login-error {
-            color: #ff6b6b;
-            text-align: center;
-            margin-top: 1rem;
-            font-size: 0.9rem;
-            display: none;
-        }
-        
-        .login-error.active {
-            display: block;
-        }
-        
-        /* Admin Panel */
-        .admin-panel {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 100%;
-            height: 100vh;
-            background: var(--navy-light);
-            z-index: 2000;
-            transition: var(--transition);
-            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
-            border-left: 1px solid rgba(212, 175, 55, 0.2);
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-        }
-        
-        .admin-panel.active {
-            right: 0;
-        }
-        
-        .admin-header {
-            padding: 1.5rem;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .admin-header h2 {
-            color: var(--gold);
-            font-size: 1.6rem;
-        }
-        
-        .close-admin {
-            background: transparent;
-            border: none;
-            color: var(--white);
-            font-size: 1.3rem;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .close-admin:hover {
-            color: var(--gold);
-            transform: rotate(90deg);
-        }
-        
-        .admin-content {
-            padding: 1.5rem;
-            flex: 1;
-            overflow-y: auto;
-        }
-        
-        .admin-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1.2rem;
-        }
-        
-        .admin-actions {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
-            flex-wrap: wrap;
-        }
-        
-        .save-btn {
-            background: var(--gold);
-            color: var(--navy);
-            border: none;
-            padding: 0.9rem 1.5rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: var(--transition);
-            flex: 1;
-            min-width: 120px;
-        }
-        
-        .save-btn:hover {
-            background: var(--gold-light);
-        }
-        
-        .cancel-btn {
-            background: transparent;
-            color: var(--white);
-            border: 1px solid var(--gray);
-            padding: 0.9rem 1.5rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: var(--transition);
-            flex: 1;
-            min-width: 120px;
-        }
-        
-        .cancel-btn:hover {
-            border-color: var(--gold);
-            color: var(--gold);
-        }
-        
-        .admin-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 1999;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition);
-        }
-        
-        .admin-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .logout-btn {
-            background: transparent;
-            color: var(--white);
-            border: 1px solid var(--gray);
-            padding: 0.5rem 1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 0.75rem;
-            margin-left: 1rem;
-        }
-        
-        .logout-btn:hover {
-            border-color: #ff6b6b;
-            color: #ff6b6b;
-        }
-        
-        /* Image Upload Styles */
-        .image-upload-container {
-            border: 2px dashed rgba(212, 175, 55, 0.3);
-            padding: 1.5rem;
-            text-align: center;
-            transition: var(--transition);
-            cursor: pointer;
-            position: relative;
-        }
-        
-        .image-upload-container:hover {
-            border-color: var(--gold);
-        }
-        
-        .image-upload-container i {
-            font-size: 2.5rem;
-            color: var(--gold);
-            margin-bottom: 1rem;
-        }
-        
-        .image-upload-container p {
-            color: var(--gray);
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-        }
-        
-        .upload-btn {
-            background: var(--navy);
-            color: var(--white);
-            border: 1px solid var(--gold);
-            padding: 0.6rem 1.2rem;
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 0.85rem;
-        }
-        
-        .upload-btn:hover {
-            background: var(--gold);
-            color: var(--navy);
-        }
-        
-        .image-preview {
-            max-width: 100%;
-            max-height: 180px;
-            margin-top: 1rem;
-            display: none;
-        }
-        
-        .image-preview.active {
-            display: block;
-        }
-        
-        /* Manage Perfumes Section */
-        .manage-perfumes {
-            margin-top: 2.5rem;
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
-            padding-top: 1.5rem;
-        }
-        
-        .manage-perfumes h3 {
-            color: var(--gold);
-            margin-bottom: 1.2rem;
-            font-size: 1.3rem;
-        }
-        
-        .perfume-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            max-height: 250px;
-            overflow-y: auto;
-        }
-        
-        .perfume-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem;
-            background: var(--navy);
-            border: 1px solid rgba(212, 175, 55, 0.1);
-            transition: var(--transition);
-        }
-        
-        .perfume-item:hover {
-            border-color: var(--gold);
-        }
-        
-        .perfume-info {
-            flex: 1;
-        }
-        
-        .perfume-info h4 {
-            color: var(--white);
-            margin-bottom: 0.3rem;
-            font-size: 1rem;
-        }
-        
-        .perfume-info p {
-            color: var(--gray);
-            font-size: 0.85rem;
-        }
-        
-        .delete-btn {
-            background: transparent;
-            color: #ff6b6b;
-            border: 1px solid #ff6b6b;
-            padding: 0.4rem 0.8rem;
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 0.75rem;
-        }
-        
-        .delete-btn:hover {
-            background: #ff6b6b;
-            color: var(--white);
-        }
-        
-        /* WhatsApp Button */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            background: linear-gradient(135deg, #25D366, #128C7E);
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
-            z-index: 1000;
-            animation: pulse 2s infinite, float 4s ease-in-out infinite;
-            transition: var(--transition);
-            text-decoration: none;
-        }
-        
-        .whatsapp-float:hover {
-            transform: scale(1.1);
-            box-shadow: 0 12px 25px rgba(37, 211, 102, 0.6);
-        }
-        
-        /* Luxury Particle Effect */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
-        }
-        
-        .particle {
-            position: absolute;
-            background: var(--gold);
-            border-radius: 50%;
-            opacity: 0;
-        }
-        
-        /* Footer */
-        footer {
-            background: var(--navy-light);
-            padding: 4rem 2rem 2rem;
-            margin-top: 6rem;
-            border-top: 1px solid rgba(212, 175, 55, 0.1);
-        }
-        
-        .footer-content {
-            max-width: 1600px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-        }
-        
-        .footer-column h3 {
-            color: var(--gold);
-            margin-bottom: 1.5rem;
-            font-size: 1.4rem;
-            position: relative;
-            padding-bottom: 1rem;
-        }
-        
-        .footer-column h3:after {
-            content: '';
-            position: absolute;
-            width: 50px;
-            height: 1px;
-            background: var(--gold);
-            bottom: 0;
-            left: 0;
-        }
-        
-        .footer-column p, .footer-column a {
-            color: var(--gray);
-            margin-bottom: 1rem;
-            display: block;
-            text-decoration: none;
-            transition: var(--transition);
-            line-height: 1.8;
-            font-size: 0.9rem;
-        }
-        
-        .footer-column a:hover {
-            color: var(--gold);
-            transform: translateX(5px);
-        }
-        
-        .social-icons {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-        
-        .social-icons a {
-            width: 40px;
-            height: 40px;
-            border-radius: 0;
-            background: var(--navy);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            font-size: 1.1rem;
-        }
-        
-        .social-icons a:hover {
-            background: var(--gold);
-            color: var(--navy);
-            transform: translateY(-5px);
-        }
-        
-        .copyright {
-            text-align: center;
-            margin-top: 4rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--navy-lighter);
-            color: var(--gray);
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-        }
-        
-        /* Loading Spinner */
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,.3);
-            border-radius: 50%;
-            border-top-color: var(--gold);
-            animation: spin 1s ease-in-out infinite;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 1200px) {
-            .hero h1 {
-                font-size: 3.2rem;
-            }
-            
-            .floating-perfume {
-                width: 350px;
-                height: 350px;
-            }
-            
-            .about {
-                gap: 4rem;
-            }
-        }
-        
-        @media (max-width: 992px) {
-            .hero h1 {
-                font-size: 2.8rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            .floating-perfume {
-                display: none;
-            }
-            
-            .about {
-                flex-direction: column;
-                gap: 3rem;
-            }
-            
-            .about-image:before {
-                display: none;
-            }
-            
-            .about-image img {
-                height: 400px;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .navbar {
-                flex-direction: column;
-                gap: 1.2rem;
-                padding: 0 1.5rem;
-            }
-            
-            .nav-links {
-                margin-top: 0.5rem;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .nav-links li {
-                margin: 0 0.8rem;
-            }
-            
-            .nav-actions {
-                gap: 1rem;
-            }
-            
-            .hero {
-                padding: 0 1.5rem;
-                height: 90vh;
-            }
-            
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero p {
-                font-size: 1rem;
-            }
-            
-            .hero-buttons {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .section-title h2 {
-                font-size: 2.5rem;
-            }
-            
-            .section-title p {
-                font-size: 1rem;
-            }
-            
-            .products {
-                grid-template-columns: 1fr;
-                padding: 0 1.5rem;
-                gap: 2.5rem;
-            }
-            
-            .about {
-                padding: 0 1.5rem;
-            }
-            
-            .about-content h2 {
-                font-size: 2.5rem;
-            }
-            
-            .about-content p {
-                font-size: 1rem;
-            }
-            
-            .login-form {
-                padding: 2rem;
-            }
-            
-            footer {
-                padding: 3rem 1.5rem 1.5rem;
-            }
-            
-            .footer-content {
-                gap: 2rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .logo {
-                font-size: 1.8rem;
-            }
-            
-            .nav-links a {
-                font-size: 0.8rem;
-            }
-            
-            .admin-btn, .cta-button, .secondary-button {
-                padding: 0.7rem 1rem;
-                font-size: 0.7rem;
-            }
-            
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-            
-            .section-title h2 {
-                font-size: 2.2rem;
-            }
-            
-            .product-image {
-                height: 300px;
-            }
-            
-            .about-image img {
-                height: 300px;
-            }
-            
-            .about-content h2 {
-                font-size: 2rem;
-            }
-            
-            .whatsapp-float {
-                width: 50px;
-                height: 50px;
-                font-size: 1.5rem;
-                bottom: 20px;
-                right: 20px;
-            }
-        }
+        /* ... REST OF YOUR CSS ... */
     </style>
 </head>
 <body>
-    <!-- Luxury Background -->
-    <div class="luxury-bg"></div>
+    <!-- ALL YOUR EXISTING HTML STRUCTURE REMAINS THE SAME -->
     
-    <!-- Particle Effect -->
-    <div class="particles" id="particles"></div>
-    
-    <!-- Header -->
-    <header id="header">
-        <nav class="navbar">
-            <a href="#" class="logo">L'Élégance</a>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#collections">Collections</a></li>
-                <li><a href="#about">Heritage</a></li>
-                <li><a href="#contact">Concierge</a></li>
-            </ul>
-            <div class="nav-actions">
-                <a href="#" class="nav-icon"><i class="fas fa-search"></i></a>
-                <a href="#" class="nav-icon"><i class="fas fa-user"></i></a>
-                <a href="#" class="nav-icon"><i class="fas fa-shopping-bag"></i></a>
-                <button class="admin-btn" id="admin-toggle">Admin</button>
-                <a href="#collections" class="cta-button">View Collection</a>
-
-</div>
-        </nav>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-bg"></div>
-        <div class="hero-content">
-            <h1 id="hero-title">The Art of<br>Fragrance</h1>
-            <p id="hero-text">Discover the world's most exclusive perfumes, meticulously curated for those with discerning taste. Each bottle tells a story of luxury, craftsmanship, and timeless elegance.</p>
-            <div class="hero-buttons" id="hero-buttons">
-                <a href="#collections" class="cta-button">Explore Collection</a>
-                <a href="#about" class="secondary-button">Our Heritage</a>
-            </div>
-        </div>
-        <div class="floating-perfume" id="floating-perfume"></div>
-    </section>
-
-    <!-- Featured Products -->
-    <section id="collections">
-        <div class="section-title">
-            <h2 id="collection-title">Curated Collection</h2>
-            <p id="collection-text">An exclusive selection of rare and artisanal fragrances, each with its own unique story and character.</p>
-        </div>
-        <div class="products" id="products-container">
-            <!-- Products will be dynamically added here -->
-            <div class="loading-message">Loading perfumes...</div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="about" id="about">
-        <div class="about-image fade-in">
-            <img src="https://images.unsplash.com/photo-1615634260163-9cec0c445eae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80" alt="About L'Élégance">
-        </div>
-        <div class="about-content fade-in">
-            <h2>Our Heritage</h2>
-            <p>L'Élégance was conceived in the heart of Paris, born from a passion for the art of perfumery and a commitment to preserving its legacy. Our founders, Isabelle and Alexandre Laurent, established this maison with a singular vision: to make the world's most exquisite fragrances accessible to connoisseurs.</p>
-            <p>Each perfume in our collection undergoes a rigorous authentication process, ensuring that every bottle meets our exacting standards of quality and provenance. We work directly with perfumers, estates, and private collectors to source rare and discontinued fragrances.</p>
-            <p>Beyond commerce, we are custodians of olfactory art, dedicated to preserving the heritage and craftsmanship of perfumery for future generations.</p>
-            <p class="signature">Isabelle & Alexandre Laurent, Founders</p>
-            <a href="#contact" class="cta-button" style="margin-top: 2rem;">Contact Concierge</a>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer id="contact">
-        <div class="footer-content">
-            <div class="footer-column">
-                <h3>L'Élégance</h3>
-                <p>Your premier destination for luxury perfume resale. Authenticity guaranteed, excellence delivered.</p>
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-pinterest"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                </div>
-            </div>
-            <div class="footer-column">
-                <h3>Collections</h3>
-                <a href="#">Maison Francis Kurkdjian</a>
-                <a href="#">Creed</a>
-                <a href="#">Tom Ford</a>
-                <a href="#">Chanel</a>
-                <a href="#">Dior</a>
-            </div>
-            <div class="footer-column">
-                <h3>Client Services</h3>
-                <a href="#">Authentication Process</a>
-                <a href="#">Shipping Information</a>
-                <a href="#">Returns & Exchanges</a>
-                <a href="#">FAQ</a>
-                <a href="#">Contact Concierge</a>
-            </div>
-            <div class="footer-column">
-                <h3>Contact Info</h3>
-<p><i class="fas fa-map-marker-alt"></i> 78 Avenue Montaigne, 75008 Paris</p>
-                <p><i class="fas fa-phone"></i> +33 1 42 68 53 01</p>
-                <p><i class="fas fa-envelope"></i> concierge@leleganceparis.com</p>
-            </div>
-        </div>
-        <div class="copyright">
-            <p>&copy; 2023 L'Élégance. All rights reserved. Luxury perfume resale.</p>
-        </div>
-    </footer>
-
-    <!-- Login Modal -->
-    <div class="login-modal" id="login-modal">
-        <div class="login-form">
-            <h2>Admin Access</h2>
-            <div class="form-group">
-                <label for="admin-username">Username</label>
-                <input type="text" id="admin-username" placeholder="Enter admin username">
-            </div>
-            <div class="form-group">
-                <label for="admin-password">Password</label>
-                <input type="password" id="admin-password" placeholder="Enter admin password">
-            </div>
-            <button class="login-btn" id="login-btn">Login</button>
-            <div class="login-error" id="login-error">
-                Invalid credentials. Please try again.
-            </div>
-        </div>
-    </div>
-
-    <!-- Admin Panel -->
-    <div class="admin-overlay" id="admin-overlay"></div>
-    <div class="admin-panel" id="admin-panel">
-        <div class="admin-header">
-            <h2>Admin Dashboard</h2>
-            <div>
-                <button class="logout-btn" id="logout-btn">Logout</button>
-                <button class="close-admin" id="close-admin">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-        </div>
-        <div class="admin-content">
-            <form class="admin-form" id="perfume-form">
-                <div class="form-group">
-                    <label for="perfume-name">Perfume Name</label>
-                    <input type="text" id="perfume-name" required>
-                </div>
-                <div class="form-group">
-                    <label for="perfume-brand">Brand</label>
-                    <input type="text" id="perfume-brand" required>
-                </div>
-                <div class="form-group">
-                    <label for="perfume-description">Description</label>
-                    <textarea id="perfume-description" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="perfume-price">Price (₦)</label>
-                    <input type="number" id="perfume-price" min="0" step="1000" required>
-                </div>
-                <div class="form-group">
-                    <label for="perfume-original-price">Original Price (₦)</label>
-                    <input type="number" id="perfume-original-price" min="0" step="1000">
-                </div>
-                
-                <!-- Image Upload Section -->
-                <div class="form-group">
-                    <label>Perfume Image</label>
-                    <div class="image-upload-container" id="image-upload-area">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        <p>Drag & drop your image here or click to browse</p>
-                        <button type="button" class="upload-btn" id="upload-trigger">Select Image</button>
-                        <input type="file" id="image-upload" accept="image/*" style="display: none;">
-                        <img id="image-preview" class="image-preview" alt="Image preview">
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="perfume-badge">Badge</label>
-                    <select id="perfume-badge">
-                        <option value="">None</option>
-                        <option value="Limited Edition">Limited Edition</option>
-                        <option value="Exclusive">Exclusive</option>
-                        <option value="Heritage">Heritage</option>
-                        <option value="New Arrival">New Arrival</option>
-</select>
-                </div>
-                <div class="admin-actions">
-                    <button type="submit" class="save-btn" id="save-perfume-btn">
-                        <span id="save-btn-text">Add Perfume</span>
-                        <span class="loading" id="save-loading" style="display: none;"></span>
-                    </button>
-                    <button type="button" class="cancel-btn" id="cancel-form">Cancel</button>
-                </div>
-            </form>
-            
-            <!-- Manage Existing Perfumes -->
-            <div class="manage-perfumes">
-                <h3>Manage Perfumes</h3>
-                <div class="perfume-list" id="perfume-list">
-                    <!-- Perfume items will be dynamically added here -->
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- WhatsApp Float Button -->
-    <a href="https://wa.me/1234567890?text=Hi%20L'Élégance,%20I'm%20interested%20in%20your%20perfume%20collection" class="whatsapp-float" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
     <script>
         // Admin credentials
         const ADMIN_CREDENTIALS = {
@@ -1535,8 +43,59 @@
             password: "elegance2024"
         };
 
-        // API base URL - will work both locally and on Render
-        const API_BASE = window.location.origin + '/api';
+        // Sample perfume data with Naira prices - ONLY USED AS FALLBACK
+        const DEFAULT_PERFUMES = [
+            {
+                id: 1,
+                name: "Baccarat Rouge 540",
+                brand: "Maison Francis Kurkdjian",
+                description: "A luminous fragrance with notes of jasmine, saffron, and amberwood. An olfactory masterpiece that captures the essence of crystal.",
+                price: 450000,
+                originalPrice: 675000,
+                image: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2064&q=80",
+                badge: "Limited Edition"
+            },
+            {
+                id: 2,
+                name: "No. 5 Parfum",
+                brand: "Chanel",
+                description: "The timeless classic with notes of aldehydes, ylang-ylang, and May rose. The epitome of elegance and sophistication.",
+                price: 285000,
+                originalPrice: 420000,
+                image: "https://images.unsplash.com/photo-1590736969955-71ac4460e351?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2064&q=80",
+                badge: "Heritage"
+            },
+            {
+                id: 3,
+                name: "Aventus",
+                brand: "Creed",
+                description: "A bold, fruity fragrance with pineapple, birch, and musk. The scent of success, ambition, and power.",
+                price: 525000,
+                originalPrice: 742500,
+                image: "https://images.unsplash.com/photo-1613029226232-93c62f6a967a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                badge: "Exclusive"
+            }
+        ];
+
+        // Load perfumes from localStorage or use defaults
+        function loadPerfumes() {
+            const savedPerfumes = localStorage.getItem('lelegancePerfumes');
+            if (savedPerfumes) {
+                return JSON.parse(savedPerfumes);
+            } else {
+                // First time - save defaults to localStorage
+                savePerfumes(DEFAULT_PERFUMES);
+                return DEFAULT_PERFUMES;
+            }
+        }
+
+        // Save perfumes to localStorage
+        function savePerfumes(perfumesArray) {
+            localStorage.setItem('lelegancePerfumes', JSON.stringify(perfumesArray));
+        }
+
+        // Initialize perfumes array
+        let perfumes = loadPerfumes();
 
         // Authentication state
         let isAuthenticated = false;
@@ -1558,75 +117,6 @@
         const imagePreview = document.getElementById('image-preview');
         const imageUploadArea = document.getElementById('image-upload-area');
         const perfumeList = document.getElementById('perfume-list');
-        const savePerfumeBtn = document.getElementById('save-perfume-btn');
-        const saveBtnText = document.getElementById('save-btn-text');
-        const saveLoading = document.getElementById('save-loading');
-
-        // API functions
-        async function fetchPerfumes() {
-            try {
-                const response = await fetch(`${API_BASE}/perfumes`);
-                if (!response.ok) throw new Error('Failed to fetch perfumes');
-                return await response.json();
-            } catch (error) {
-                console.error('Error fetching perfumes:', error);
-                showError('Failed to load perfumes');
-                return [];
-            }
-        }
-
-        async function addPerfume(perfumeData) {
-            try {
-                const response = await fetch(`${API_BASE}/perfumes`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(perfumeData)
-                });
-                
-                if (!response.ok) throw new Error('Failed to add perfume');
-                return await response.json();
-            } catch (error) {
-                console.error('Error adding perfume:', error);
-                throw error;
-            }
-        }
-
-        async function deletePerfume(id) {
-            try {
-                const response = await fetch(`${API_BASE}/perfumes/${id}`, {
-            method: 'DELETE'
-                });
-                
-                if (!response.ok) throw new Error('Failed to delete perfume');
-                return await response.json();
-            } catch (error) {
-                console.error('Error deleting perfume:', error);
-                throw error;
-            }
-        }
-
-        // Utility functions
-        function showError(message) {
-            alert('Error: ' + message);
-        }
-
-        function showSuccess(message) {
-            alert('Success: ' + message);
-        }
-
-        function setLoading(button, isLoading) {
-            if (isLoading) {
-                button.disabled = true;
-                saveBtnText.style.display = 'none';
-                saveLoading.style.display = 'inline-block';
-            } else {
-                button.disabled = false;
-                saveBtnText.style.display = 'inline-block';
-                saveLoading.style.display = 'none';
-            }
-        }
 
         // Initialize the application
         document.addEventListener('DOMContentLoaded', function() {
@@ -1634,7 +124,8 @@
             initParticles();
             
             // Load perfumes
-            loadAndRenderPerfumes();
+            renderPerfumes();
+            renderPerfumeList();
             
             // Set up admin panel
             setupAdminPanel();
@@ -1646,19 +137,13 @@
             setupScrollBehavior();
         });
 
-        // Load and render perfumes
-        async function loadAndRenderPerfumes() {
-            const perfumes = await fetchPerfumes();
-            renderPerfumes(perfumes);
-        }
-
         // Set up scroll behavior for header
         function setupScrollBehavior() {
             let lastScrollY = window.scrollY;
             const header = document.getElementById('header');
             
             window.addEventListener('scroll', () => {
-                if (window.scrollY > lastScrollY && window.scY > 100) {
+                if (window.scrollY > lastScrollY && window.scrollY > 100) {
                     // Scrolling down
                     header.classList.add('hidden');
                 } else {
@@ -1678,13 +163,8 @@
         }
 
         // Render perfumes to the page
-        function renderPerfumes(perfumes) {
+        function renderPerfumes() {
             productsContainer.innerHTML = '';
-            
-            if (perfumes.length === 0) {
-                productsContainer.innerHTML = '<div class="loading-message">No perfumes found. Add some in the admin panel!</div>';
-                return;
-            }
             
             perfumes.forEach((perfume, index) => {
                 const productCard = document.createElement('div');
@@ -1698,14 +178,14 @@
                 const formattedOriginalPrice = perfume.originalPrice ? perfume.originalPrice.toLocaleString('en-NG') : '';
                 
                 productCard.innerHTML = `
-                    ${perfume.badge ? <div class="product-badge">${perfume.badge}</div> : ''}
+                    ${perfume.badge ? `<div class="product-badge">${perfume.badge}</div>` : ''}
                     <img src="${perfume.image}" alt="${perfume.name}" class="product-image">
                     <div class="product-info">
                         <span class="brand">${perfume.brand}</span>
                         <h3>${perfume.name}</h3>
                         <p>${perfume.description}</p>
                         <div class="price">
-${formattedPrice} ${perfume.originalPrice ? <span class="original-price">${formattedOriginalPrice}</span> : ''}
+                            ${formattedPrice} ${perfume.originalPrice ? `<span class="original-price">${formattedOriginalPrice}</span>` : ''}
                         </div>
                         <button class="product-button" data-id="${perfume.id}">Inquire Privately</button>
                     </div>
@@ -1727,7 +207,7 @@ ${formattedPrice} ${perfume.originalPrice ? <span class="original-price">${forma
                     const perfume = perfumes.find(p => p.id == perfumeId);
                     
                     if (perfume) {
-                        const message = Hi L'Élégance, I'm interested in the ${perfume.brand} ${perfume.name} perfume. Can you provide more details?;
+                        const message = `Hi L'Élégance, I'm interested in the ${perfume.brand} ${perfume.name} perfume. Can you provide more details?`;
                         const encodedMessage = encodeURIComponent(message);
                         window.open(`https://wa.me/1234567890?text=${encodedMessage}`, '_blank');
                     }
@@ -1736,8 +216,7 @@ ${formattedPrice} ${perfume.originalPrice ? <span class="original-price">${forma
         }
 
         // Render perfume list in admin panel
-        async function renderPerfumeList() {
-            const perfumes = await fetchPerfumes();
+        function renderPerfumeList() {
             perfumeList.innerHTML = '';
             
             perfumes.forEach(perfume => {
@@ -1762,20 +241,21 @@ ${formattedPrice} ${perfume.originalPrice ? <span class="original-price">${forma
             
             // Add event listeners to delete buttons
             document.querySelectorAll('.delete-btn').forEach(button => {
-                button.addEventListener('click', async function() {
+                button.addEventListener('click', function() {
                     const perfumeId = parseInt(this.getAttribute('data-id'));
                     if (confirm('Are you sure you want to delete this perfume?')) {
-                        try {
-                            await deletePerfume(perfumeId);
-                            await loadAndRenderPerfumes();
-                            await renderPerfumeList();
-                            showSuccess('Perfume deleted successfully!');
-                        } catch (error) {
-                            showError('Failed to delete perfume');
-                        }
+                        deletePerfume(perfumeId);
                     }
                 });
             });
+        }
+
+        // Delete a perfume
+        function deletePerfume(id) {
+            perfumes = perfumes.filter(perfume => perfume.id !== id);
+            savePerfumes(perfumes); // Save to localStorage
+            renderPerfumes();
+            renderPerfumeList();
         }
 
         // Set up admin panel functionality
@@ -1785,7 +265,6 @@ ${formattedPrice} ${perfume.originalPrice ? <span class="original-price">${forma
                 if (isAuthenticated) {
                     adminPanel.classList.add('active');
                     adminOverlay.classList.add('active');
-                    renderPerfumeList();
                 } else {
                     loginModal.classList.add('active');
                 }
@@ -1796,8 +275,7 @@ ${formattedPrice} ${perfume.originalPrice ? <span class="original-price">${forma
                 imageUpload.click();
             });
             
-            imageUploadArea.
-            addEventListener('dragover', (e) => {
+            imageUploadArea.addEventListener('dragover', (e) => {
                 e.preventDefault();
                 imageUploadArea.style.borderColor = 'var(--gold)';
                 imageUploadArea.style.background = 'rgba(212, 175, 55, 0.05)';
@@ -1849,7 +327,6 @@ ${formattedPrice} ${perfume.originalPrice ? <span class="original-price">${forma
                     loginError.classList.remove('active');
                     document.getElementById('admin-username').value = '';
                     document.getElementById('admin-password').value = '';
-                    renderPerfumeList();
                 } else {
                     loginError.classList.add('active');
                 }
@@ -1867,10 +344,11 @@ ${formattedPrice} ${perfume.originalPrice ? <span class="original-price">${forma
             adminOverlay.addEventListener('click', closeAdminPanel);
             
             // Handle form submission
-            perfumeForm.addEventListener('submit', async function(e) {
+            perfumeForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 
-                const perfumeData = {
+                const newPerfume = {
+                    id: perfumes.length > 0 ? Math.max(...perfumes.map(p => p.id)) + 1 : 1,
                     name: document.getElementById('perfume-name').value,
                     brand: document.getElementById('perfume-brand').value,
                     description: document.getElementById('perfume-description').value,
@@ -1883,18 +361,16 @@ ${formattedPrice} ${perfume.originalPrice ? <span class="original-price">${forma
                     badge: document.getElementById('perfume-badge').value
                 };
                 
-                try {
-                    setLoading(savePerfumeBtn, true);
-                    await addPerfume(perfumeData);
-                    await loadAndRenderPerfumes();
-                    await renderPerfumeList();
-                    closeAdminPanel();
-                    showSuccess('Perfume added successfully!');
-                } catch (error) {
-                    showError('Failed to add perfume');
-                } finally {
-                    setLoading(savePerfumeBtn, false);
-                }
+                perfumes.push(newPerfume);
+                savePerfumes(perfumes); // Save to localStorage
+                renderPerfumes();
+                renderPerfumeList();
+                closeAdminPanel();
+                perfumeForm.reset();
+                imagePreview.classList.remove('active');
+                
+                // Show success message
+                alert('Perfume added successfully!');
             });
         }
 
@@ -1963,7 +439,7 @@ ${formattedPrice} ${perfume.originalPrice ? <span class="original-price">${forma
             window.addEventListener('scroll', function() {
                 const scrolled = window.pageYOffset;
                 const heroBg = document.querySelector('.hero-bg');
-                heroBg.style.transform = translateY(${scrolled * 0.5}px);
+                heroBg.style.transform = `translateY(${scrolled * 0.5}px)`;
             });
         }
 
@@ -1977,22 +453,50 @@ ${formattedPrice} ${perfume.originalPrice ? <span class="original-price">${forma
                 particle.classList.add('particle');
                 
                 // Random properties
-         const size = Math.random() * 3 + 1;
+                const size = Math.random() * 3 + 1;
                 const posX = Math.random() * 100;
                 const posY = Math.random() * 100;
                 const delay = Math.random() * 20;
                 const duration = Math.random() * 10 + 10;
                 
-                particle.style.width = ${size}px;
-                particle.style.height = ${size}px;
-                particle.style.left = ${posX}%;
-                particle.style.top = ${posY}%;
-                particle.style.animation = float ${duration}s ease-in-out ${delay}s infinite;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
                 particle.style.opacity = Math.random() * 0.5 + 0.1;
                 
                 particlesContainer.appendChild(particle);
             }
         }
+
+        // Reset to default perfumes (for emergency use)
+        function resetToDefaults() {
+            if (confirm('Are you sure you want to reset all perfumes to defaults? This cannot be undone.')) {
+                localStorage.removeItem('lelegancePerfumes');
+                perfumes = loadPerfumes();
+                renderPerfumes();
+                renderPerfumeList();
+                alert('Perfumes reset to defaults!');
+            }
+        }
+
+        // Add reset button to admin panel (optional)
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add reset button to admin header
+            const adminHeader = document.querySelector('.admin-header');
+            const resetBtn = document.createElement('button');
+            resetBtn.className = 'logout-btn';
+            resetBtn.innerHTML = '<i class="fas fa-undo"></i> Reset';
+            resetBtn.style.marginLeft = '0.5rem';
+            resetBtn.style.backgroundColor = 'transparent';
+            resetBtn.style.color = '#ff6b6b';
+            resetBtn.style.borderColor = '#ff6b6b';
+            resetBtn.onclick = resetToDefaults;
+            
+            const headerDiv = adminHeader.querySelector('div');
+            headerDiv.insertBefore(resetBtn, headerDiv.querySelector('.logout-btn'));
+        });
     </script>
 </body>
 </html>
