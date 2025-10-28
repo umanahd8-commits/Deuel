@@ -37,65 +37,19 @@
     <!-- ALL YOUR EXISTING HTML STRUCTURE REMAINS THE SAME -->
     
     <script>
+        // API Base URL - automatically detects environment
+        const API_BASE_URL = window.location.hostname === 'localhost' 
+            ? 'http://localhost:3000/api' 
+            : '/api';
+
         // Admin credentials
         const ADMIN_CREDENTIALS = {
             username: "admin",
             password: "elegance2024"
         };
 
-        // Sample perfume data with Naira prices - ONLY USED AS FALLBACK
-        const DEFAULT_PERFUMES = [
-            {
-                id: 1,
-                name: "Baccarat Rouge 540",
-                brand: "Maison Francis Kurkdjian",
-                description: "A luminous fragrance with notes of jasmine, saffron, and amberwood. An olfactory masterpiece that captures the essence of crystal.",
-                price: 450000,
-                originalPrice: 675000,
-                image: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2064&q=80",
-                badge: "Limited Edition"
-            },
-            {
-                id: 2,
-                name: "No. 5 Parfum",
-                brand: "Chanel",
-                description: "The timeless classic with notes of aldehydes, ylang-ylang, and May rose. The epitome of elegance and sophistication.",
-                price: 285000,
-                originalPrice: 420000,
-                image: "https://images.unsplash.com/photo-1590736969955-71ac4460e351?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2064&q=80",
-                badge: "Heritage"
-            },
-            {
-                id: 3,
-                name: "Aventus",
-                brand: "Creed",
-                description: "A bold, fruity fragrance with pineapple, birch, and musk. The scent of success, ambition, and power.",
-                price: 525000,
-                originalPrice: 742500,
-                image: "https://images.unsplash.com/photo-1613029226232-93c62f6a967a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-                badge: "Exclusive"
-            }
-        ];
-
-        // Load perfumes from localStorage or use defaults
-        function loadPerfumes() {
-            const savedPerfumes = localStorage.getItem('lelegancePerfumes');
-            if (savedPerfumes) {
-                return JSON.parse(savedPerfumes);
-            } else {
-                // First time - save defaults to localStorage
-                savePerfumes(DEFAULT_PERFUMES);
-                return DEFAULT_PERFUMES;
-            }
-        }
-
-        // Save perfumes to localStorage
-        function savePerfumes(perfumesArray) {
-            localStorage.setItem('lelegancePerfumes', JSON.stringify(perfumesArray));
-        }
-
-        // Initialize perfumes array
-        let perfumes = loadPerfumes();
+        // Global perfumes array
+        let perfumes = [];
 
         // Authentication state
         let isAuthenticated = false;
@@ -118,14 +72,62 @@
         const imageUploadArea = document.getElementById('image-upload-area');
         const perfumeList = document.getElementById('perfume-list');
 
+        // API Service Functions
+        const apiService = {
+            // Get all perfumes
+            async getPerfumes() {
+                try {
+                    const response = await fetch(`${API_BASE_URL}/perfumes`);
+                    if (!response.ok) throw new Error('Failed to fetch perfumes');
+                    return await response.json();
+                } catch (error) {
+                    console.error('Error fetching perfumes:', error);
+                    throw error;
+                }
+            },
+
+            // Add new perfume
+            async addPerfume(perfumeData) {
+                try {
+                    const response = await fetch(`${API_BASE_URL}/perfumes`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(perfumeData)
+                    });
+                    
+                    if (!response.ok) throw new Error('Failed to add perfume');
+                    return await response.json();
+                } catch (error) {
+                    console.error('Error adding perfume:', error);
+                    throw error;
+                }
+            },
+
+            // Delete perfume
+            async deletePerfume(id) {
+                try {
+                    const response = await fetch(`${API_BASE_URL}/perfumes/${id}`, {
+                        method: 'DELETE'
+                    });
+                    
+                    if (!response.ok) throw new Error('Failed to delete perfume');
+                    return await response.json();
+                } catch (error) {
+                    console.error('Error deleting perfume:', error);
+                    throw error;
+                }
+            }
+        };
+
         // Initialize the application
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize particles
             initParticles();
             
-            // Load perfumes
-            renderPerfumes();
-            renderPerfumeList();
+            // Load perfumes from API
+            loadPerfumesFromAPI();
             
             // Set up admin panel
             setupAdminPanel();
@@ -136,6 +138,88 @@
             // Set up scroll behavior
             setupScrollBehavior();
         });
+
+        // Load perfumes from backend API
+        async function loadPerfumesFromAPI() {
+            try {
+                showLoadingState();
+                perfumes = await apiService.getPerfumes();
+                renderPerfumes();
+                renderPerfumeList();
+            } catch (error) {
+                console.error('Failed to load perfumes:', error);
+                showErrorState();
+            }
+        }
+
+        // Show loading state
+        function showLoadingState() {
+            productsContainer.innerHTML = `
+                <div class="loading-state">
+                    <div class="loading-spinner"></div>
+                    <p>Loading our luxury collection...</p>
+                </div>
+            `;
+        }
+
+        // Show error state
+        function showErrorState() {
+            productsContainer.innerHTML = `
+                <div class="error-state">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>Failed to load perfumes. Please refresh the page.</p>
+                    <button onclick="loadPerfumesFromAPI()" class="retry-btn">Retry</button>
+                </div>
+            `;
+        }
+
+        // Add loading and error styles
+        const style = document.createElement('style');
+        style.textContent = `
+            .loading-state, .error-state {
+                text-align: center;
+                padding: 4rem 2rem;
+                color: var(--platinum);
+            }
+            
+            .loading-spinner {
+                width: 40px;
+                height: 40px;
+                border: 3px solid rgba(212, 175, 55, 0.3);
+                border-top: 3px solid var(--gold);
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+                margin: 0 auto 1rem;
+            }
+            
+            .error-state i {
+                font-size: 3rem;
+                color: #ff6b6b;
+                margin-bottom: 1rem;
+            }
+            
+            .retry-btn {
+                background: var(--gold);
+                color: var(--navy);
+                border: none;
+                padding: 0.75rem 1.5rem;
+                border-radius: 5px;
+                cursor: pointer;
+                margin-top: 1rem;
+                font-weight: 500;
+                transition: var(--transition);
+            }
+            
+            .retry-btn:hover {
+                background: var(--gold-light);
+            }
+            
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
 
         // Set up scroll behavior for header
         function setupScrollBehavior() {
@@ -166,6 +250,16 @@
         function renderPerfumes() {
             productsContainer.innerHTML = '';
             
+            if (perfumes.length === 0) {
+                productsContainer.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-wind"></i>
+                        <p>No perfumes available. Check back soon for our luxury collection.</p>
+                    </div>
+                `;
+                return;
+            }
+            
             perfumes.forEach((perfume, index) => {
                 const productCard = document.createElement('div');
                 productCard.className = 'product-card';
@@ -185,7 +279,7 @@
                         <h3>${perfume.name}</h3>
                         <p>${perfume.description}</p>
                         <div class="price">
-                            ${formattedPrice} ${perfume.originalPrice ? `<span class="original-price">${formattedOriginalPrice}</span>` : ''}
+                            ₦${formattedPrice} ${perfume.originalPrice ? `<span class="original-price">₦${formattedOriginalPrice}</span>` : ''}
                         </div>
                         <button class="product-button" data-id="${perfume.id}">Inquire Privately</button>
                     </div>
@@ -209,7 +303,8 @@
                     if (perfume) {
                         const message = `Hi L'Élégance, I'm interested in the ${perfume.brand} ${perfume.name} perfume. Can you provide more details?`;
                         const encodedMessage = encodeURIComponent(message);
-                        window.open(`https://wa.me/1234567890?text=${encodedMessage}`, '_blank');
+                        // Replace with your actual WhatsApp number
+                        window.open(`https://wa.me/2348123456789?text=${encodedMessage}`, '_blank');
                     }
                 });
             });
@@ -250,12 +345,19 @@
             });
         }
 
-        // Delete a perfume
-        function deletePerfume(id) {
-            perfumes = perfumes.filter(perfume => perfume.id !== id);
-            savePerfumes(perfumes); // Save to localStorage
-            renderPerfumes();
-            renderPerfumeList();
+        // Delete a perfume via API
+        async function deletePerfume(id) {
+            try {
+                await apiService.deletePerfume(id);
+                // Remove from local array
+                perfumes = perfumes.filter(perfume => perfume.id !== id);
+                renderPerfumes();
+                renderPerfumeList();
+                showNotification('Perfume deleted successfully!', 'success');
+            } catch (error) {
+                console.error('Error deleting perfume:', error);
+                showNotification('Failed to delete perfume. Please try again.', 'error');
+            }
         }
 
         // Set up admin panel functionality
@@ -336,6 +438,7 @@
             logoutBtn.addEventListener('click', function() {
                 isAuthenticated = false;
                 closeAdminPanel();
+                showNotification('Logged out successfully', 'success');
             });
             
             // Close admin panel
@@ -344,34 +447,133 @@
             adminOverlay.addEventListener('click', closeAdminPanel);
             
             // Handle form submission
-            perfumeForm.addEventListener('submit', function(e) {
+            perfumeForm.addEventListener('submit', async function(e) {
                 e.preventDefault();
                 
-                const newPerfume = {
-                    id: perfumes.length > 0 ? Math.max(...perfumes.map(p => p.id)) + 1 : 1,
-                    name: document.getElementById('perfume-name').value,
-                    brand: document.getElementById('perfume-brand').value,
-                    description: document.getElementById('perfume-description').value,
-                    price: parseFloat(document.getElementById('perfume-price').value),
-                    originalPrice: document.getElementById('perfume-original-price').value ? 
-                        parseFloat(document.getElementById('perfume-original-price').value) : null,
-                    image: document.getElementById('image-upload').files[0] ? 
-                        URL.createObjectURL(document.getElementById('image-upload').files[0]) : 
-                        'https://images.unsplash.com/photo-1547887538-0e319c3217cf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80',
-                    badge: document.getElementById('perfume-badge').value
-                };
+                const submitBtn = perfumeForm.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
                 
-                perfumes.push(newPerfume);
-                savePerfumes(perfumes); // Save to localStorage
-                renderPerfumes();
-                renderPerfumeList();
-                closeAdminPanel();
-                perfumeForm.reset();
-                imagePreview.classList.remove('active');
-                
-                // Show success message
-                alert('Perfume added successfully!');
+                try {
+                    // Show loading state
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Adding...';
+                    submitBtn.disabled = true;
+                    
+                    const formData = new FormData(perfumeForm);
+                    const newPerfume = {
+                        name: document.getElementById('perfume-name').value,
+                        brand: document.getElementById('perfume-brand').value,
+                        description: document.getElementById('perfume-description').value,
+                        price: parseFloat(document.getElementById('perfume-price').value),
+                        originalPrice: document.getElementById('perfume-original-price').value ? 
+                            parseFloat(document.getElementById('perfume-original-price').value) : null,
+                        image: document.getElementById('image-upload').files[0] ? 
+                            URL.createObjectURL(document.getElementById('image-upload').files[0]) : 
+                            'https://images.unsplash.com/photo-1547887538-0e319c3217cf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80',
+                        badge: document.getElementById('perfume-badge').value
+                    };
+                    
+                    // Add via API
+                    const result = await apiService.addPerfume(newPerfume);
+                    
+                    // Add to local array
+                    perfumes.push(result.perfume);
+                    
+                    // Update UI
+                    renderPerfumes();
+                    renderPerfumeList();
+                    closeAdminPanel();
+                    perfumeForm.reset();
+                    imagePreview.classList.remove('active');
+                    
+                    showNotification('Perfume added successfully!', 'success');
+                    
+                } catch (error) {
+                    console.error('Error adding perfume:', error);
+                    showNotification('Failed to add perfume. Please try again.', 'error');
+                } finally {
+                    // Reset button
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }
             });
+        }
+
+        // Show notification
+        function showNotification(message, type = 'info') {
+            // Remove existing notifications
+            const existingNotification = document.querySelector('.notification');
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+            
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <span>${message}</span>
+                <button onclick="this.parentElement.remove()">&times;</button>
+            `;
+            
+            // Add styles for notification
+            if (!document.querySelector('#notification-styles')) {
+                const styles = document.createElement('style');
+                styles.id = 'notification-styles';
+                styles.textContent = `
+                    .notification {
+                        position: fixed;
+                        top: 100px;
+                        right: 20px;
+                        background: var(--navy-light);
+                        color: var(--platinum);
+                        padding: 1rem 1.5rem;
+                        border-radius: 8px;
+                        border-left: 4px solid var(--gold);
+                        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                        z-index: 10000;
+                        display: flex;
+                        align-items: center;
+                        gap: 1rem;
+                        max-width: 400px;
+                        animation: slideInRight 0.3s ease;
+                    }
+                    
+                    .notification-success {
+                        border-left-color: #4CAF50;
+                    }
+                    
+                    .notification-error {
+                        border-left-color: #f44336;
+                    }
+                    
+                    .notification button {
+                        background: none;
+                        border: none;
+                        color: var(--platinum);
+                        font-size: 1.2rem;
+                        cursor: pointer;
+                        padding: 0;
+                        width: 24px;
+                        height: 24px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                    
+                    @keyframes slideInRight {
+                        from { transform: translateX(100%); opacity: 0; }
+                        to { transform: translateX(0); opacity: 1; }
+                    }
+                `;
+                document.head.appendChild(styles);
+            }
+            
+            document.body.appendChild(notification);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 5000);
         }
 
         // Close admin panel
@@ -456,47 +658,19 @@
                 const size = Math.random() * 3 + 1;
                 const posX = Math.random() * 100;
                 const posY = Math.random() * 100;
-                const delay = Math.random() * 20;
-                const duration = Math.random() * 10 + 10;
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
                 
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
                 particle.style.left = `${posX}%`;
                 particle.style.top = `${posY}%`;
-                particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
-                particle.style.opacity = Math.random() * 0.5 + 0.1;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${delay}s`;
                 
                 particlesContainer.appendChild(particle);
             }
         }
-
-        // Reset to default perfumes (for emergency use)
-        function resetToDefaults() {
-            if (confirm('Are you sure you want to reset all perfumes to defaults? This cannot be undone.')) {
-                localStorage.removeItem('lelegancePerfumes');
-                perfumes = loadPerfumes();
-                renderPerfumes();
-                renderPerfumeList();
-                alert('Perfumes reset to defaults!');
-            }
-        }
-
-        // Add reset button to admin panel (optional)
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add reset button to admin header
-            const adminHeader = document.querySelector('.admin-header');
-            const resetBtn = document.createElement('button');
-            resetBtn.className = 'logout-btn';
-            resetBtn.innerHTML = '<i class="fas fa-undo"></i> Reset';
-            resetBtn.style.marginLeft = '0.5rem';
-            resetBtn.style.backgroundColor = 'transparent';
-            resetBtn.style.color = '#ff6b6b';
-            resetBtn.style.borderColor = '#ff6b6b';
-            resetBtn.onclick = resetToDefaults;
-            
-            const headerDiv = adminHeader.querySelector('div');
-            headerDiv.insertBefore(resetBtn, headerDiv.querySelector('.logout-btn'));
-        });
     </script>
 </body>
 </html>
