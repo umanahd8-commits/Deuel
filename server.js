@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 
 // Auto-ping function
 function startAutoPing() {
-    const pingUrl = 'https://your-app-name.onrender.com'; // CHANGE THIS to your actual Render URL
+    const pingUrl = 'https://godscent-fragrances.onrender.com'; // CHANGE THIS to your actual Render URL
     const pingInterval = 5 * 60 * 1000; // 5 minutes
     
     function ping() {
